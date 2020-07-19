@@ -25,7 +25,7 @@ public class FindMoviesStoreImpl implements FindMoviesStoreDao, FindMoviesDataSo
     @Override
     public List<FindMoviesModel> getIMDbMoviesByName(String name) throws Exception {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM imdb_api.imdb_movie_store where movie_title like '%\" + name + \"%'");
         List<FindMoviesModel> movies = new ArrayList<>();
         while(resultSet.next()) {
             movies.add(getMovies(resultSet));
