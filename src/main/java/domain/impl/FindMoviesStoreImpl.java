@@ -6,15 +6,13 @@ import enums.Params;
 import model.FindMoviesModel;
 import java.sql.Connection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FindMoviesStoreImpl implements FindMoviesStoreDao, FindMoviesDataSource {
 
@@ -61,12 +59,48 @@ public class FindMoviesStoreImpl implements FindMoviesStoreDao, FindMoviesDataSo
 
     @Override
     public void setIMDBMovies(List<FindMoviesModel> list) throws Exception {
+        String query = "";
+        String values = "";
 
+        if (list.size() == 1) {
+            values += getValuesAsString(list.get(0));
+        }else{
+            for (FindMoviesModel mvList : list) {
+                if (values == "") {
+                    values += getValuesAsString(mvList);
+                }else{
+                    values += ", " + getValuesAsString(mvList);
+                }
+            }
+            query += values + ";";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+    }
+
+    public String getValuesAsString(FindMoviesModel movies) throws Exception {
+        String values = "";
+        DateFormat dateFormat = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+        Date date = (Date)dateFormat.parse(movies.getMovie_released().toString());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String dtFormat = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+
+        values += "('" + movies.getMovie_title() + "'," + movies.getMovie_year() + ",'" + movies.getMovie_runtime() + "','" + movies.getMovie_genre() + "','" +
+                movies.getMovie_director() + "','" + movies.getMovie_language() + "','" + movies.getMovie_country() + "'," + movies.getMovie_rating() + ",'" + movies.getMovieID() + "','" +
+                movies.getMovie_type() + "','" + movies.getMovie_production() + "')";
+
+        return values;
     }
 
     @Override
-    public List<FindMoviesModel> getIMDbMovies(Map<Params, String> list) throws Exception {
-        return null;
+    public List<FindMoviesModel> getIMDbMovies(Map<Params, String> paramList) throws Exception {
+        List<FindMoviesModel> movieList = null;
+
+        if (paramList.containsKey(Params.NAME) && paramList.size() == 1) {
+            movieList = getIMDbMoviesByName(paramList.get(Params.NAME));
+        }
+        return movieList;
     }
 
     private Date getDateToString(String movie_released) throws ParseException {

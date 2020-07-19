@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface FindMoviesDataSource {
 
-    public List<FindMoviesModel> getIMDbMovies(Map<Params, String> list) throws Exception;
+    public List<FindMoviesModel> getIMDbMovies(Map<Params, String> paramList) throws Exception;
 }
