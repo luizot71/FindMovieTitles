@@ -19,6 +19,4 @@ dependencies {
     compile group: 'com.sparkjava', name: 'spark-kotlin', version: '1.0.0-alpha'
     testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
 
-
-
 }

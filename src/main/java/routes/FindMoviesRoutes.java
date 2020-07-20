@@ -1,9 +1,9 @@
 package routes;
 
+import service.FindMoviesService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import service.FindMoviesService;
 import spark.Spark;
 
 import java.text.ParseException;

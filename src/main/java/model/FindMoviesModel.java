@@ -1,8 +1,9 @@
 package model;
 
-import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class FindMoviesModel {
