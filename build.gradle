@@ -16,5 +16,9 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
-    compile group: 'com.sparkjava', name: 'spark-core', version: '2.9.2'
+    compile group: 'com.sparkjava', name: 'spark-kotlin', version: '1.0.0-alpha'
+    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
+
+
+
 }

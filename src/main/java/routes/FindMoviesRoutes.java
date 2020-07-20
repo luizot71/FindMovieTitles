@@ -4,14 +4,13 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import service.FindMoviesService;
+import spark.Spark;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static spark.Spark.get;
 
 public class FindMoviesRoutes {
 
@@ -22,17 +21,16 @@ public class FindMoviesRoutes {
     }
 
     public void getUserDetails() {
-        get(new Route("/users/:id") {
+        Spark.get("/users/:id", new Route() {
             @Override
-            public Object handle(Request request, Response response) {
-                return "User: username= hi, email= hi@hi.net";
+            public Object handle(Request request, Response response) throws Exception {
+                return "User: username=test, email=test@test.net";
             }
         });
     }
 
     public void getMoviesByDate() {
-        get(new Route("/getMovies/date/:date") {
-
+        Spark.get("/getMovies/date/:date", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 String date = request.params("date");
@@ -50,7 +48,7 @@ public class FindMoviesRoutes {
     }
 
     public void getMoviesByName() {
-        get(new Route("/getMovies/name/:name") {
+        Spark.get("/getMovies/name/:name", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 String name = request.params(":name");
@@ -61,8 +59,7 @@ public class FindMoviesRoutes {
     }
 
     public void getMoviesByMultipleParams() {
-        get(new Route("/getMovies") {
-
+        Spark.get("/getMovies", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 Map<String, String> paramsMap = new HashMap<>();

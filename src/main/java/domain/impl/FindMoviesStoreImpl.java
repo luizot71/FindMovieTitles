@@ -4,6 +4,8 @@ import domain.dao.FindMoviesStoreDao;
 import domain.dataSource.FindMoviesDataSource;
 import enums.Params;
 import model.FindMoviesModel;
+import resources.MySqlConnector;
+
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
@@ -19,7 +21,8 @@ public class FindMoviesStoreImpl implements FindMoviesStoreDao, FindMoviesDataSo
     Connection connection = null;
 
     public FindMoviesStoreImpl() {
-        connection = null;
+
+        connection = MySqlConnector.getConnection().connection;
     }
 
     @Override

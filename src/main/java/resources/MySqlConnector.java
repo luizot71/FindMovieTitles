@@ -10,11 +10,11 @@ public class MySqlConnector {
 
     private MySqlConnector() {
 
-        String url = null;
-        String db = null;
-        String driver = null;
-        String user = null;
-        String password = null;
+        String url = "jdbc:mysql://localhost:3306/";
+        String db = "imdb_Api";
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String user = "root";
+        String password = "root";
 
         try {
             Class.forName(driver);
